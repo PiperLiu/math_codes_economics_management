@@ -15,7 +15,7 @@
 
 分析：
 - 任取$x_A,y_A \in \lambda C$，因为是要证明$\lambda C$是凸集
-- 也就是要对于所有的$x_A,y_A \n \lambda C,\beta \in [0,1]$，都有$\beta x_A + (1-\beta) y_A \in \lambda C$
+- 也就是要对于所有的$x_A,y_A \in \lambda C,\beta \in [0,1]$，都有$\beta x_A + (1-\beta) y_A \in \lambda C$
 - 能利用的性质只有$C$是凸集`以及`$C$与$\lambda C$两个集合的关系（从微观上，一定存在$C$中元素乘上实数$\lambda$在$\lambda C$中），应该在二者间建立联系
 
 **(2)**
