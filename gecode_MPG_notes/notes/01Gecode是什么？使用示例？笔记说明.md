@@ -9,6 +9,7 @@
   - [Gecode 是什么？](#gecode-是什么)
   - [Gecode 能做什么？使用示例](#gecode-能做什么使用示例)
   - [笔记综述](#笔记综述)
+- [笔记地址](#笔记地址)
 
 <!-- /code_chunk_output -->
 
@@ -44,7 +45,7 @@ run golf
 
 此时生成 golf.exe ，输入：
 ```powershell
-main.exe -mode gist
+./main.exe -mode gist
 ```
 
 将产生 gist 界面，可视化搜索求解过程。
@@ -53,3 +54,8 @@ main.exe -mode gist
 
 ## 笔记综述
 本笔记将以 Gecode 官方使用手册《Modeling and Programming with Gecode》为主要参考资料，结合笔者自身实践经验，提供中文的 Gecode 入门参考。
+
+# 笔记地址
+笔记、资源以及用到的代码均放在 GitHub 仓库里：
+- Github：[PiperLiu/math_codes_economics_management/gecode_MPG_notes](https://github.com/PiperLiu/math_codes_economics_management/tree/master/gecode_MPG_notes)
+- Gitee:[Piper/math_codes_economics_management/gecode_MPG_notes](https://gitee.com/piperliu/math_codes_economics_management/tree/master/gecode_MPG_notes)
