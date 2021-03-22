@@ -12,6 +12,10 @@
     - [distinct - 两两不同约束](#distinct-两两不同约束)
     - [branch - 定义分支规则](#branch-定义分支规则)
     - [关于 print](#关于-print)
+  - [搜索引擎的使用](#搜索引擎的使用)
+  - [异常处理](#异常处理)
+  - [Gist - 可视化求解过程](#gist-可视化求解过程)
+  - [设定目标值](#设定目标值)
 - [笔记地址](#笔记地址)
 
 <!-- /code_chunk_output -->
@@ -27,6 +31,9 @@
 还不明白？告诉你答案，我们最后要把 SEND + MORE = MONEY 替换为 9567 + 1085 = 10652 。这就是求解成功了，其中 S 是 9 、 E 是 5 ...
 
 ### 必须注意的点
+
+代码在：[../codes/03sendmoremoney/sendmoremoney.cpp](../codes/03sendmoremoney/sendmoremoney.cpp)
+
 ```cpp
 // 使用整数变量和整数约束
 // 我们需要 include gecode/int.hh 头文件
@@ -165,6 +172,137 @@ std::cout << l << std::endl;
 ```
 
 表示 S 是 9 、 E 是 5 ...
+
+## 搜索引擎的使用
+
+我们在上面定义了我们的问题（包含变量与约束），我们在程序中称之为一个“模型`model`”。
+
+这个模型对象中存储了当前变量的范围，我将其理解为搜索中的一些节点的集合（在一些运算后产生的更小的、更精准的解空间）。
+
+那么如何实现一颗搜索树呢？在 `main` 方法中，我们将其实现。
+
+```cpp
+// main function
+int main(int argc, char* argv[]) {
+  // create model and search engine
+  SendMoreMoney* m = new SendMoreMoney;
+  // 第一个 print()
+  std::cout << "1" << std::endl;
+  m->print();
+  m->status();
+  // 第二个 print()
+  std::cout << "2" << std::endl;
+  m->print();
+  DFS<SendMoreMoney> e(m);
+  // 第三个 print()
+  std::cout << "3" << std::endl;
+  m->print();
+  delete m;
+  // search and print all solutions
+  while (SendMoreMoney* s = e.next()) {
+    // 第四个 print()
+    std::cout << "4" << std::endl;
+    s->print(); delete s;
+  }
+  return 0;
+}
+```
+
+你可以看到，我在上面安插了 4 个 print，来看看当前我们搜索到的范围。输入如下。
+
+```bash
+1
+{[1..9], [0..9], [0..9], [0..9], [1..9], [0..9], [0..9], [0..9]}
+2
+{9, [4..7], [5..8], [2..8], 1, 0, [2..8], [2..8]}
+3
+{9, [4..7], [5..8], [2..8], 1, 0, [2..8], [2..8]}
+4
+{9, 5, 6, 7, 1, 0, 8, 2}
+```
+
+当我们声明这个问题时（初始化模型），我们的模型根据约束做了一些最基本的运算，在这里体现为：
+- `S`的范围应该是`[1, 9]`
+- `M`的范围应该是`[1, 9]`
+
+这很好理解，因为我们有约束 `rel(*this, s, IRT_NQ, 0);`， `rel(*this, m, IRT_NQ, 0);` 。
+
+只有当我们调用 `status()` 后，约束传播`constraint propagation`才会起作用。
+
+status函数的注释原文为 Query space status Propagates the space until fixpoint or failure; updates the statistics information stat; and:
+- if the space is failed, SpaceStatus::SS_FAILED is returned.
+- if the space is not failed but the space has no brancher left, SpaceStatus::SS_SOLVED is returned.
+- otherwise, SpaceStatus::SS_BRANCH is returned.
+
+我的理解是，对现有的解空间做一次最基本的探索，直到需要 branch 做决策的点或者探索失败。
+
+值得注意的是，如果我们取消上述 `m->status();` 这句话，那么 3 对应的 `print()` 依然是 `{9, [4..7], [5..8], [2..8], 1, 0, [2..8], [2..8]}` 。这说明为我们的模型声明搜索引擎时，会调用一次 `status()` 。
+
+如下，在 while 中，我们希望返回每一次探索的解。值得注意的是，解也是一个模型（问题实例）。
+
+```cpp
+while (SendMoreMoney* s = e.next()) {
+    // 第四个 print()
+    std::cout << "4" << std::endl;
+    s->print(); delete s;
+  }
+```
+
+在这里，`e`是基于DFS深度优先搜索的搜索引擎，`e.next()`则是基于DFS规则做出的下一个探索方向的探索结果。如果探索到头了，那么`e.next()`会返回`NULL`，此时 while 停止，跳出循环。
+
+## 异常处理
+
+实际上，为了捕捉 Gecode 的异常，使用 `try {} catch () {}` 是一个很好的选择。
+
+```cpp
+int main(int argc, char* argv[]) {
+  try {
+    // main 中的内容
+  } catch (Exception e) {
+    std::cerr << "Gecode exception: " << e.what() << std::endl;
+    return 1;
+  }
+  return 0;
+}
+```
+
+注意，这里的 `Exception` 是 Gecode 命名空间中的异常`Gecode::Exception`。
+
+不管是本笔记还是教程文件MPG，都没有使用 try catch （为了易读性），但是在时间使用中，还是应该具有如此的良好习惯。
+
+## Gist - 可视化求解过程
+
+程序见[../codes/03sendmoremoney/sendmoremoneyGist_1.cpp](../codes/03sendmoremoney/sendmoremoneyGist_1.cpp)
+
+```cpp
+...
+#include <gecode/gist.hh>
+using namespace Gecode;
+...
+
+int main(int argc, char* argv[]) {
+  SendMoreMoney* m = new SendMoreMoney;
+  Gist::dfs(m);
+  delete m;
+  return 0;
+}
+```
+
+我们引入 gist.hh 头文件，在 main 中较为简单地可视化 dfs 过程。
+
+![可以用鼠标探索](../images/20210322_gist.gif)
+
+关于 gist 功能，还有其他调用方法。gist功能较为强大，这里不再赘述。
+
+此外，还可用手动增加现实解的功能，代码见[../codes/03sendmoremoney/sendmoremoneyGist_2.cpp](../codes/03sendmoremoney/sendmoremoneyGist_2.cpp)
+
+![添加了 inspect ](../images/20210322_gist_inspect.gif)
+
+## 设定目标值
+
+设定目标值时，我们需要声明 cost 函数以及用变量表示搜索过程中变量的传递（用于目标函数的计算）。这里不详细讨论。
+
+这并不复杂，我们将在之后的笔记中专门讨论。
 
 # 笔记地址
 笔记、资源以及用到的代码均放在 GitHub 仓库里：
