@@ -7,6 +7,7 @@
 | 专题 | 内容 | 阅读入口 |
 | --- | --- | --- |
 | 管理数学基础 | 矩阵理论、泛函分析、凸分析、模糊数学 | [章节索引](./Foundations_of%20_Managerial%20_Mathematics/README.md) · [证明与学习方法](./Foundations_of%20_Managerial%20_Mathematics/methodology.md) |
+| 六天重学线性代数 | 空间变换、秩、投影、特征值与工程优化；每天一章 | [六天路线](./linear_algebra_6_days/README.md) · [第一课](./linear_algebra_6_days/notes/01空间与线性变换.md) |
 | Gecode 中文笔记 | 约束建模、安装与运行、搜索及可视化示例 | [专题说明与索引](./gecode_MPG_notes/README.md) |
 
 这些是持续整理的学习记录，不代表完整教材或已全面校验的教程。部分旧笔记使用图片记录题目和推导；后续补充会逐步增加可直接阅读的文字、公式与自绘示意图。
