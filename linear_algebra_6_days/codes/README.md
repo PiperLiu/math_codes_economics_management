@@ -35,3 +35,11 @@ python3 "$RENDERER" --scene "$PWD/codes/01_scene.py" \
 - 新增四张中文 SVG：坐标唯一性、线性组合的两条路线、二维输入到三维输出的列含义、复合变换的列追踪。
 - 绘图源码为 `01_explanation_figures.py`；从专题根目录运行 `python3 codes/01_explanation_figures.py` 可重新生成四张图，不需要第三方 Python 包。
 - 对新增 SVG 渲染检查文字、箭头和边界；核对文中小算例、公式配对、图片链接和加粗间距。GIF 参数保持不变，检查实际编码抽帧及接缝；没有用抽帧检查替代实时播放测试。
+
+## 2026-11-07：按列追踪输入贡献
+
+新增 `01-column-contributions.svg`，根据学习者手绘中的“第一列与输入分量相连”思路重绘。上方突出第一列与 `x₁=2` 的对应，下方用同色项连接三次行乘列计算和按列汇总。绘图源码为 `01_column_contributions.py`，在专题根目录运行 `python3 codes/01_column_contributions.py` 可重新生成；只使用 Python 标准库。已用 resvg 0.48.1 渲染检查中文、公式、连线和边界，并核对两列贡献及相加结果。
+
+## 思考题参考答案配图
+
+`01_answer_figures.py` 生成 `01-answer-vector-paths.svg`，展示第 1 题的列向量组合与第 4 题的两种操作顺序。在专题根目录运行 `python3 codes/01_answer_figures.py` 即可重绘，仅使用 Python 标准库。图中文字与坐标已通过 resvg 渲染检查；所有箭头使用固定标准坐标，网格间隔为 1。
