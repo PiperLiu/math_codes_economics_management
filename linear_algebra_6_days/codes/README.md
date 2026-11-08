@@ -1,4 +1,4 @@
-# 第一课：实验与绘图
+# 线性代数课程：实验与绘图
 
 `01_experiment.py` 是正文算例，使用 Python 3.9+ 标准库。输入为代码中显式列出的矩阵和向量；输出为变换后的坐标，不读取外部数据。
 
@@ -43,3 +43,14 @@ python3 "$RENDERER" --scene "$PWD/codes/01_scene.py" \
 ## 思考题参考答案配图
 
 `01_answer_figures.py` 生成 `01-answer-vector-paths.svg`，展示第 1 题的列向量组合与第 4 题的两种操作顺序。在专题根目录运行 `python3 codes/01_answer_figures.py` 即可重绘，仅使用 Python 标准库。图中文字与坐标已通过 resvg 渲染检查；所有箭头使用固定标准坐标，网格间隔为 1。
+
+## 第二课：秩、零空间与线性方程组
+
+- `02_rank_experiment.py`：使用 Python 3.9+ 标准库 `fractions.Fraction` 做小规模精确消元；输入为脚本内的有理数矩阵，无文件读写和网络请求。输出主线矩阵与增广矩阵的秩、沿零空间移动的结果，以及非零极小缩放与完全压扁的精确秩差别。它不实现浮点容差或数值秩判断。
+- `02_rank_figures.py`：生成四张中文 SVG，分别展示压扁后的维数、列之间的依赖、解集合与零空间、行列式的面积意义。图中分别注明三维投影或集合示意的用途。
+- 从专题根目录运行 `python3 codes/02_rank_experiment.py`；需要重绘时运行 `python3 codes/02_rank_figures.py`，会更新本课四张 SVG。
+- 2026-11-07 在 macOS、Python 3.9.6 下执行实验，用现有 resvg 0.48.1 渲染并查看四张图；核对输出与手算结果、中文布局、矩阵维数、正文链接与导航。未安装新依赖，未验证其他平台。
+
+## 消元与约束的示意图
+
+`02_elimination_figure.py` 生成 `02-elimination-constraints.svg`，用两个显示读数及其汇总对照冗余约束与不一致约束。图为教学构造，不是实际测量数据。运行 `python3 codes/02_elimination_figure.py` 可重绘，只使用 Python 标准库。已用 resvg 渲染检查中文布局与等式。
