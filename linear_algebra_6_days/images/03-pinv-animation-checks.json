@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-09",
+  "sources_and_outputs": {
+    "codes/03_pinv_projection.py": "bb11a8b9ca6d41b4ef9ce4a5138d171eb4468179706fd6636adc3fd507d24f01",
+    "codes/03_pinv_minimum.py": "e1e13abf5761538419af917def8f53f02e1ce7ffb4b7c7458caf9eaaa8ec63a4",
+    "codes/03_pinv_scenes.py": "d5fd6b4ea4120a19073a7e218d6b8bbacbc2e01ea306dd91c4312085b6bcee6f",
+    "codes/03_pinv_mapping.py": "143aa7dfb694bd1b73bf227a361fe5a55ec82ecbde6e6f7fda8d96ed7e1a7c21",
+    "images/03-pinv-minimum.gif": "1b9f23d34aca314c6140c6014eeae5bc49e9c52d9a7744bb6104b856b6fa586b",
+    "images/03-pinv-mapping.gif": "cd7f412699115d9e19aed2ad44d7ee9c95938d3ccd9a8234b2d520659d03dd3a",
+    "images/03-pinv-projection.gif": "aa364c60887d5432322c192f78d126ea20b8f8b148cad4e272cd4b8ae54c7b89"
+  },
+  "checks": [
+    "101 sampled input/output and squared norm relationships",
+    "periodic seam checked analytically",
+    "representative GIF frames extracted for visual inspection"
+  ],
+  "settings": {
+    "width": 1000,
+    "fps": 10,
+    "seconds": 10,
+    "colors": 48
+  }
+}

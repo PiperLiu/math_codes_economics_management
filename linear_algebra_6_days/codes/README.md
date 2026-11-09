@@ -54,3 +54,20 @@ python3 "$RENDERER" --scene "$PWD/codes/01_scene.py" \
 ## 消元与约束的示意图
 
 `02_elimination_figure.py` 生成 `02-elimination-constraints.svg`，用两个显示读数及其汇总对照冗余约束与不一致约束。图为教学构造，不是实际测量数据。运行 `python3 codes/02_elimination_figure.py` 可重绘，只使用 Python 标准库。已用 resvg 渲染检查中文布局与等式。
+
+
+## 第三课：投影、最小二乘、QR 与伪逆
+
+- `03_projection_experiment.py`：使用 Python 3.9+ 标准库，核对直线投影、三维读数的最小二乘、机器人匀速轨迹拟合、两列 Gram–Schmidt QR 与最小范数输入。有理数算例使用 `Fraction`；含根号的 QR 使用浮点运算并检查容差。没有文件读写或网络访问，不是通用数值求解器。
+- `03_projection_figures.py`：生成四张中文 SVG，展示垂足的最短距离、输出平面的残差截面、时间位置图与读数空间的区别、QR 的基向量分解。图中注明真实坐标图、截面示意或基内坐标的用途。
+- 在专题根目录运行 `python3 codes/03_projection_experiment.py`；运行 `python3 codes/03_projection_figures.py` 会重绘本课四张 SVG。
+- 2026-11-09 在 macOS 上执行实验并通过断言；使用 resvg 0.48.1 渲染查看四张 SVG，核对中文布局、图意与计算结果。未安装新依赖。
+
+
+### 伪逆的三段动图
+
+`03_pinv_scenes.py` 保存几何场景；`03_pinv_projection.py`、`03_pinv_minimum.py`、`03_pinv_mapping.py` 是三个独立渲染入口，依次展示最近可达输出、最短输入、变化读数下的伪逆映射。动画用矩阵 D=[[1,1],[0,0]]，坐标固定；每帧独立计算，不反复迭代矩阵。
+
+用 svg-to-gif 技能提供的 `render_animation.py` 渲染，每个入口使用 `--width 1000 --fps 10 --seconds 10 --colors 48 --keep-keyframes`。例如将 `--scene` 指向本目录的 `03_pinv_minimum.py`，将 `--output` 指向 `../images/03-pinv-minimum.gif`。重新生成已有输出需显式加 `--overwrite`。场景只依赖 Python 标准库；渲染需要 resvg 与 FFmpeg。GIF 旁的 JSON 保留编码报告和工具信息，keyframes 目录保留 SVG 关键帧；编辑场景后应重新渲染。
+
+2026-11-09 使用现有工具生成三个循环 GIF，保留 1000 像素宽度、10 fps、10 秒及 48 色设置，没有为压缩缩小画布。未安装可选的 gifsicle。
