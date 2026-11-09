@@ -9,15 +9,17 @@
 使用 svg-to-gif 技能的 Python → SVG → resvg → PNG → FFmpeg 管线。`RENDERER` 指向该技能的 `scripts/render_animation.py`，从本专题根目录运行：
 
 ```sh
+animation_tmp=$(mktemp -d)
 python3 "$RENDERER" --scene "$PWD/codes/01_scene.py" \
-  --output "$PWD/images/01-grid-transform.gif" \
+  --output "$animation_tmp/01-grid-transform.gif" \
   --width 800 --fps 20 --seconds 8 --colors 64 \
-  --no-gifsicle --keep-keyframes
+  --no-gifsicle
+cp "$animation_tmp/01-grid-transform.gif" "$PWD/images/01-grid-transform.gif"
 ```
 
 现有输出需显式追加 `--overwrite`。本例未设置体积预算，未降低尺寸、帧率或色数。GIF 为 800×500、20 fps、8 秒、无限循环、1,278,359 字节，深色不透明背景。环境为 macOS arm64、Python 3.9.6、resvg 0.48.1、FFmpeg 9.0.2；未安装或更新依赖。未验证其他操作系统。
 
-[渲染报告](../images/01-grid-transform.gif.json)保存生成时工具身份、源码散列、参数和编码结果；其中路径记录的是当时的生成位置。报告不是跨机器的路径配置，重新生成时使用上述相对项目路径。四张可编辑关键帧在 `images/01-grid-transform.gif.keyframes/`。
+动画生成与检查在临时目录完成，只把最终 GIF 复制到 `images/`。JSON 渲染报告、校验清单、抽帧预览及关键帧目录均不保存到项目或阅读副本。正文使用的独立 SVG 配图和 `codes/` 中的绘图源码继续保留。
 
 ## 已做的检查（2026-11-05）
 
@@ -68,6 +70,6 @@ python3 "$RENDERER" --scene "$PWD/codes/01_scene.py" \
 
 `03_pinv_scenes.py` 保存几何场景；`03_pinv_projection.py`、`03_pinv_minimum.py`、`03_pinv_mapping.py` 是三个独立渲染入口，依次展示最近可达输出、最短输入、变化读数下的伪逆映射。动画用矩阵 D=[[1,1],[0,0]]，坐标固定；每帧独立计算，不反复迭代矩阵。
 
-用 svg-to-gif 技能提供的 `render_animation.py` 渲染，每个入口使用 `--width 1000 --fps 10 --seconds 10 --colors 48 --keep-keyframes`。例如将 `--scene` 指向本目录的 `03_pinv_minimum.py`，将 `--output` 指向 `../images/03-pinv-minimum.gif`。重新生成已有输出需显式加 `--overwrite`。场景只依赖 Python 标准库；渲染需要 resvg 与 FFmpeg。GIF 旁的 JSON 保留编码报告和工具信息，keyframes 目录保留 SVG 关键帧；编辑场景后应重新渲染。
+用 svg-to-gif 技能提供的 `render_animation.py` 渲染，每个入口使用 `--width 1000 --fps 10 --seconds 10 --colors 48`。例如将 `--scene` 指向本目录的 `03_pinv_minimum.py`，将 `--output` 指向临时目录中的 `03-pinv-minimum.gif`，检查完成后仅将 GIF 复制到 `images/`。重新生成已有输出需显式加 `--overwrite`。场景只依赖 Python 标准库；渲染需要 resvg 与 FFmpeg。渲染器自动生成的 JSON 和检查用中间文件留在临时目录；编辑场景后应重新渲染。
 
 2026-11-09 使用现有工具生成三个循环 GIF，保留 1000 像素宽度、10 fps、10 秒及 48 色设置，没有为压缩缩小画布。未安装可选的 gifsicle。

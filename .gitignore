@@ -6,3 +6,7 @@ gecode_MPG_notes/codes/**/*.obj
 gecode_MPG_notes/codes/**/*.exe
 
 tmp/
+# Animation intermediates stay in temporary render directories
+linear_algebra_6_days/images/*.gif.json
+linear_algebra_6_days/images/*animation-checks.json
+linear_algebra_6_days/images/*.gif.keyframes/
