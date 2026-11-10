@@ -73,3 +73,12 @@ cp "$animation_tmp/01-grid-transform.gif" "$PWD/images/01-grid-transform.gif"
 用 svg-to-gif 技能提供的 `render_animation.py` 渲染，每个入口使用 `--width 1000 --fps 10 --seconds 10 --colors 48`。例如将 `--scene` 指向本目录的 `03_pinv_minimum.py`，将 `--output` 指向临时目录中的 `03-pinv-minimum.gif`，检查完成后仅将 GIF 复制到 `images/`。重新生成已有输出需显式加 `--overwrite`。场景只依赖 Python 标准库；渲染需要 resvg 与 FFmpeg。渲染器自动生成的 JSON 和检查用中间文件留在临时目录；编辑场景后应重新渲染。
 
 2026-11-09 使用现有工具生成三个循环 GIF，保留 1000 像素宽度、10 fps、10 秒及 48 色设置，没有为压缩缩小画布。未安装可选的 gifsicle。
+
+
+## 第四课：特征值、SVD 与 PCA
+
+- `04_experiment.py` 使用 Python 3.9+ 标准库核对正文构造的特征对、对角化、SVD、样本协方差、投影方差与重建误差；不是通用分解求解器。在专题目录运行 `python3 codes/04_experiment.py`。
+- `04_visuals.py` 保存六张图的几何定义；直接运行会生成 `04-boundaries.svg` 与 `04-ellipsoid.svg`。
+- `04_eigen.py`、`04_signs.py`、`04_svd.py`、`04_pca.py` 为四段 GIF 的渲染入口。使用 svg-to-gif 渲染器，设置 `--width 1000 --fps 10 --seconds 10 --colors 48`。输出指定到临时目录，检查后仅将 GIF 复制到 `images/`；不保存 JSON 报告或关键帧目录到项目。
+- 图中明确区分固定矩阵下更换输入、展示用插值、转动投影方向和三维平行投影。PCA 使用八个明确构造的点，样本协方差分母为 7，无真实测量数据。
+- 2026-11-10 在 macOS、Python 3.9.6 下运行实验；使用现有 resvg 0.48.1 与 FFmpeg 渲染并抽查图像、端点与循环衔接。四段 GIF 均为 1000×600、10 秒、10 fps、48 色，未降低设置或安装依赖。正文静态 SVG 与源码保留，检查中间文件放在临时工作目录。
