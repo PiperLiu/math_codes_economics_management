@@ -82,3 +82,13 @@ cp "$animation_tmp/01-grid-transform.gif" "$PWD/images/01-grid-transform.gif"
 - `04_eigen.py`、`04_signs.py`、`04_svd.py`、`04_pca.py` 为四段 GIF 的渲染入口。使用 svg-to-gif 渲染器，设置 `--width 1000 --fps 10 --seconds 10 --colors 48`。输出指定到临时目录，检查后仅将 GIF 复制到 `images/`；不保存 JSON 报告或关键帧目录到项目。
 - 图中明确区分固定矩阵下更换输入、展示用插值、转动投影方向和三维平行投影。PCA 使用八个明确构造的点，样本协方差分母为 7，无真实测量数据。
 - 2026-11-10 在 macOS、Python 3.9.6 下运行实验；使用现有 resvg 0.48.1 与 FFmpeg 渲染并抽查图像、端点与循环衔接。四段 GIF 均为 1000×600、10 秒、10 fps、48 色，未降低设置或安装依赖。正文静态 SVG 与源码保留，检查中间文件放在临时工作目录。
+
+
+## 第五课：二次型、凸性与约束优化
+
+- `05_experiment.py` 使用 Python 3.9+ 标准库及 `Fraction` 核对二次型、等式约束解、传感器融合权重、边界 KKT 乘子及目标值。运行 `python3 codes/05_experiment.py`；它不是通用 QP 求解器，不安装求解器依赖。
+- `05_visuals.py` 保存五张图的定义，直接运行生成曲面及权重两张 SVG。`05_directions.py`、`05_chord.py`、`05_constraint.py` 是三个 GIF 入口，分别展示方向截面、凸函数弦不等式、约束直线上的候选点。
+- 使用 svg-to-gif 渲染器，设置 `--width 1000 --fps 10 --seconds 10 --colors 48`。输出到临时目录，检查后只复制 GIF 到 `images/`；不交付 JSON、关键帧或抽帧预览。
+- 2026-11-11 在 macOS、Python 3.9.6 下运行精确算例；用现有 resvg 0.48.1 与 FFmpeg 渲染、检查静态图及 GIF 代表帧和循环衔接。GIF 为 1000×600、10 秒、10 fps，未缩减设置。所有数值及曲面均为教学构造。
+
+第五课参考答案补充后，实验还核对两组特征对、配方后的最低值、等式与边界乘子，以及双传感器融合权重与读数；有限算例只检查计算，存在性与凸性结论的推导保留在正文。
