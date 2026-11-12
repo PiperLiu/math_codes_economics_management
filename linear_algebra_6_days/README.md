@@ -11,9 +11,9 @@
 | 3 | 测量互相矛盾时，怎样找到最接近的解？｜正交投影、最小二乘、QR 与伪逆 | 内积、正交、投影、最小二乘、QR、伪逆；拟合机器人轨迹 | [第三课](./notes/03投影与最小二乘.md) · [参考答案](./notes/03投影与最小二乘.md#思考题参考答案) |
 | 4 | 哪些方向最特殊？｜特征值、特征向量、SVD 与 PCA | 特征值、特征向量、对角化的条件、实对称谱定理、SVD、PCA；读懂点云主轴和误差椭球 | [第四课](./notes/04特征值与矩阵分解.md) · [参考答案](./notes/04特征值与矩阵分解.md#思考题参考答案) |
 | 5 | 为什么有些二次曲面是碗，有些是马鞍？｜二次型、半正定性、凸性、KKT 与 QP | 二次型、正定/半正定、梯度、Hessian、凸性、乘子、KKT 的适用条件、凸 QP；融合传感器测量 | [第五课](./notes/05二次型与凸优化.md) · [参考答案](./notes/05二次型与凸优化.md#思考题参考答案) |
-| 6 | 如何直接优化一个矩阵？｜PSD 锥、矩阵不等式与半正定规划（SDP） | PSD 锥、矩阵不等式、标准 SDP、相关矩阵补全/修复、求解状态与残差；完成小规模 SDP 并解释数值误差 | 待学习 |
+| 6 | 怎样找到一个合理的矩阵？｜PSD 锥、矩阵不等式、SDP、相关矩阵修复与数值检查 | PSD 锥、矩阵不等式、标准 SDP、相关矩阵补全/修复、求解状态与残差；完成小规模 SDP 并解释数值误差 | [第六课](./notes/06半正定规划与综合实践.md) · [参考答案](./notes/06半正定规划与综合实践.md#思考题参考答案) |
 
-第 2、4、5 天分别集中解决秩、特征值、半正定性。每天先画图和预测，再推导与计算，最后用自己的话回答问题。前五课正文已编写；第六章目前只有路线，不是已经完成的教材。
+第 2、4、5 天分别集中解决秩、特征值、半正定性。每天先画图和预测，再推导与计算，最后用自己的话回答问题。六课正文与思考题参考答案均已编写；第六课以相关矩阵修复与融合实验收束，保留个人作答位置供复习对照。
 
 ## 终点先看清：凸 QP 与 SDP
 
@@ -41,5 +41,6 @@ $$\min_{X\in\mathbb S^n}\operatorname{tr}(CX)\quad\text{s.t.}\quad\operatorname{
 ## 文件与实验
 
 - 正文：`notes/`；自绘图：`images/`；可编辑绘图源码和数值实验：`codes/`。
-- 前五课实验仅用 Python 标准库：在本目录运行 `python3 codes/01_experiment.py`、`python3 codes/02_rank_experiment.py`、`python3 codes/03_projection_experiment.py`、`python3 codes/04_experiment.py` 或 `python3 codes/05_experiment.py`。
+- 六课的基础实验仅用 Python 标准库：在本目录运行 `python3 codes/01_experiment.py`、`python3 codes/02_rank_experiment.py`、`python3 codes/03_projection_experiment.py`、`python3 codes/04_experiment.py`、`python3 codes/05_experiment.py` 或 `python3 codes/06_experiment.py`。
+- 第六课另提供可选的 `codes/06_sdp_cvxpy.py`，需要已有 NumPy、CVXPY 及支持 SDP 的求解器；本次未安装或运行这些依赖，基础实验可独立完成。
 - 绘图说明、环境与检查记录：[codes/README.md](./codes/README.md)。
